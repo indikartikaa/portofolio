@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masyito Indi Kartika — Portfolio</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  
+  <!-- DevIcons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- TAILWIND CSS CDN & CONFIG -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class', // Mode gelap dipicu oleh class 'dark'
+      theme: {
+        extend: {
+          colors: {
+            sage: { DEFAULT: '#d98aa4', l: '#fdeef2', m: '#f3c6d3', d: '#a84b6c' },
+            blush: { DEFAULT: '#fbeaf0', d: '#c96b8a' },
+            lav: { DEFAULT: '#f4eef9', d: '#9a6fa8' },
+            themebg: { DEFAULT: '#fff6f8', dark: '#1a1114' },
+            card: { DEFAULT: '#ffffff', dark: '#281a1f' },
+            txt: { DEFAULT: '#3a2c30', dark: '#f5e9ec' },
+            muted: { DEFAULT: '#8a7378', dark: '#c4a8b0' },
+            brd: { DEFAULT: '#f2dee3', dark: '#3d2830' }
+          },
+          fontFamily: { sans: ['DM Sans', 'sans-serif'], serif: ['Lora', 'serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-themebg dark:bg-themebg-dark text-txt dark:text-txt-dark font-sans text-[15px] leading-relaxed transition-colors duration-300">
+
+  <!-- Komponen Navbar -->
+  <div id="navbar-container" class="sticky top-0 z-[100]"></div>
+  
+  <div id="home-container"></div>
+  <div id="about-container"></div>
+  
+  <!-- Bagian Utama (Pendidikan, Skill, & Bukti Karya) -->
+  <div id="education-container"></div>
+  <div id="skills-container"></div>
+  <div id="projects-container"></div>
+  
+  <!-- Bagian Pengalaman Pendukung & Validasi -->
+  <div id="experience-container"></div>
+  <div id="certifications-container"></div>
+  
+  <!-- Bagian Akademik & Penutup -->
+  <div id="publications-container"></div>
+  <div id="contact-container"></div>
+  
+  <div id="footer-container"></div>
+
+ <!-- ========================================= -->
+  <!-- 4. GLOBAL MODAL OVERLAY -->
+  <!-- ========================================= -->
+  <div id="modal-overlay" onclick="closeModal()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[999] hidden items-center justify-center p-4 md:p-6 transition-all duration-300">
+    <button onclick="closeModal()" class="absolute top-4 right-4 md:top-6 md:right-6 bg-white/20 hover:bg-white/40 text-white rounded-full p-2 backdrop-blur-md transition-colors z-[1000]">
+      <i data-lucide="x" class="w-6 h-6"></i>
+    </button>
+    <div id="modal-body" onclick="event.stopPropagation()" class="w-full max-w-[700px] flex justify-center items-center relative transition-transform scale-100">
+      <!-- Isi modal akan masuk ke sini -->
+    </div>
+  </div>
+
+  <!-- Lucide Icons & Custom Script -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="script.js"></script>
+</body>
+</html>
