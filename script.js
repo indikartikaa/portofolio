@@ -6,7 +6,7 @@ const projectsData = {
     tech: ['PHP MVC', 'Tailwind', 'MySQL'],
     role: 'Full Stack Developer',
     duration: '3 Months',
-    image: 'images/pemweb.jpg',
+    image: 'images/pemweb.png',
     linkLabel: 'View GitHub',
     linkUrl: 'https://github.com/indikartikaa/greasycle-laravel', 
     link2Label: 'View Project',
@@ -44,9 +44,9 @@ const projectsData = {
     tech: ['VB.NET', 'MySQL', 'Crystal Report'],
     role: 'Desktop App Developer',
     duration: 'Academic Project',
-    image: 'images/pemdesk.jpg',
+    image: 'images/pemdesk.png',
     linkLabel: 'View GitHub',
-    linkUrl: '#',
+    linkUrl: 'https://github.com/indikartikaa/kangbubur_pemdesk',
     background: 'The "Kang Bubur" culinary business faced challenges in recording fast-paced daily transactions and generating accurate sales reports manually, thus requiring a robust desktop POS solution.',
     contributions: [
       'Designed Entity Relationship Diagrams (ERD) and UML models',
@@ -61,7 +61,7 @@ const projectsData = {
     tech: ['HTML5', 'Tailwind CSS', 'JavaScript'],
     role: 'Front-End Engineer',
     duration: '2026',
-    image: 'images/porto indi.png',
+    image: 'images/porto-indi.png',
     linkLabel: 'View GitHub',
     linkUrl: 'https://github.com/indikartikaa/portofolio',
     background: 'Recruiters often skim through traditional text-based resumes. This website was built as a centralized, interactive platform to provide a deeper, more engaging, and comprehensive technical portfolio screening process.',
@@ -312,6 +312,20 @@ window.openMediaModal = function(mediaId) {
   }
 };
 
+// Filter Proyek berdasarkan Kategori (All / Full-Stack / Data / System)
+window.filterProjects = function(category, btnEl) {
+  const cards = document.querySelectorAll('#projects-grid > [data-category]');
+  cards.forEach(card => {
+    const match = category === 'all' || card.dataset.category === category;
+    card.style.display = match ? '' : 'none';
+  });
+
+  document.querySelectorAll('.proj-filter-btn').forEach(btn => {
+    btn.className = 'proj-filter-btn px-5 py-2.5 rounded-full text-[12.5px] md:text-[13px] font-bold text-muted dark:text-muted-dark bg-card dark:bg-card-dark border border-brd dark:border-brd-dark hover:text-sage-d hover:border-sage-m transition-all';
+  });
+  btnEl.className = 'proj-filter-btn px-5 py-2.5 rounded-full text-[12.5px] md:text-[13px] font-bold bg-sage-d text-white transition-all shadow-md';
+};
+
 // Fungsi Tab Kepanitiaan vs Organisasi
 window.showSection = function(type) {
   const orgSection = document.getElementById('section-org');
@@ -351,6 +365,8 @@ async function initApp() {
   await Promise.all([
     loadComponent('navbar-container', 'components/navbar.html'),
     loadComponent('home-container', 'components/home.html'),
+    loadComponent('stats-container', 'components/stats.html'),
+    loadComponent('expertise-container', 'components/expertise.html'),
     loadComponent('about-container', 'components/about.html'),
     loadComponent('education-container', 'components/education.html'),
     loadComponent('skills-container', 'components/skills.html'),
@@ -364,6 +380,34 @@ async function initApp() {
 
   if (typeof lucide !== 'undefined') lucide.createIcons();
   setupInteractions();
+  animateStatCounters();
+}
+
+// ── STAT COUNTER ANIMATION ───────────────────────────────────
+function animateStatCounters() {
+  const statEls = document.querySelectorAll(".stat-number");
+  if (!statEls.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const suffix = el.dataset.suffix || "";
+      const isDecimal = el.dataset.decimal !== undefined;
+      const target = isDecimal ? parseFloat(el.dataset.decimal) : parseInt(el.dataset.target, 10);
+      const duration = 1200;
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+        el.textContent = (isDecimal ? value.toFixed(2) : Math.round(value)) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  statEls.forEach(el => io.observe(el));
 }
 
 // ── 5. SETUP INTERACTIONS (TEMA, SCROLL, DLL) ────────────────
